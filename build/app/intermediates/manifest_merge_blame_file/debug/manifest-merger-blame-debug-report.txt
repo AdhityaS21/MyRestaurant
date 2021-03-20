@@ -1,0 +1,172 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="com.me.MyRestaurant"
+4    android:versionCode="1"
+5    android:versionName="1.0.0" >
+6
+7    <uses-sdk
+8        android:minSdkVersion="16"
+9        android:targetSdkVersion="29" />
+10    <!--
+11         Flutter needs it to communicate with the running application
+12         to allow setting breakpoints, to provide hot reload, etc.
+13    -->
+14    <uses-permission android:name="android.permission.INTERNET" />
+14-->/home/agungs/flutter/MyRestaurant/android/app/src/main/AndroidManifest.xml:8:5-67
+14-->/home/agungs/flutter/MyRestaurant/android/app/src/main/AndroidManifest.xml:8:22-64
+15    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+15-->/home/agungs/flutter/MyRestaurant/android/app/src/main/AndroidManifest.xml:9:5-79
+15-->/home/agungs/flutter/MyRestaurant/android/app/src/main/AndroidManifest.xml:9:22-76
+16
+17    <application
+17-->/home/agungs/flutter/MyRestaurant/android/app/src/main/AndroidManifest.xml:11:5-49:19
+18        android:name="io.flutter.app.FlutterApplication"
+18-->/home/agungs/flutter/MyRestaurant/android/app/src/main/AndroidManifest.xml:12:9-57
+19        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+19-->[androidx.core:core:1.1.0] /home/agungs/.gradle/caches/transforms-2/files-2.1/3e26ef26d15f163a2f1a31a2130a0254/core-1.1.0/AndroidManifest.xml:24:18-86
+20        android:debuggable="true"
+21        android:icon="@mipmap/ic_launcher"
+21-->/home/agungs/flutter/MyRestaurant/android/app/src/main/AndroidManifest.xml:14:9-43
+22        android:label="MyRestaurant" >
+22-->/home/agungs/flutter/MyRestaurant/android/app/src/main/AndroidManifest.xml:13:9-37
+23        <activity
+23-->/home/agungs/flutter/MyRestaurant/android/app/src/main/AndroidManifest.xml:15:9-43:20
+24            android:name="com.me.MyRestaurant.MainActivity"
+24-->/home/agungs/flutter/MyRestaurant/android/app/src/main/AndroidManifest.xml:16:13-41
+25            android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
+25-->/home/agungs/flutter/MyRestaurant/android/app/src/main/AndroidManifest.xml:19:13-163
+26            android:hardwareAccelerated="true"
+26-->/home/agungs/flutter/MyRestaurant/android/app/src/main/AndroidManifest.xml:20:13-47
+27            android:launchMode="singleTop"
+27-->/home/agungs/flutter/MyRestaurant/android/app/src/main/AndroidManifest.xml:17:13-43
+28            android:theme="@style/LaunchTheme"
+28-->/home/agungs/flutter/MyRestaurant/android/app/src/main/AndroidManifest.xml:18:13-47
+29            android:windowSoftInputMode="adjustResize" >
+29-->/home/agungs/flutter/MyRestaurant/android/app/src/main/AndroidManifest.xml:21:13-55
+30
+31            <!--
+32                 Specifies an Android theme to apply to this Activity as soon as
+33                 the Android process has started. This theme is visible to the user
+34                 while the Flutter UI initializes. After that, this theme continues
+35                 to determine the Window background behind the Flutter UI.
+36            -->
+37            <meta-data
+37-->/home/agungs/flutter/MyRestaurant/android/app/src/main/AndroidManifest.xml:26:13-29:17
+38                android:name="io.flutter.embedding.android.NormalTheme"
+38-->/home/agungs/flutter/MyRestaurant/android/app/src/main/AndroidManifest.xml:27:15-70
+39                android:resource="@style/NormalTheme" />
+39-->/home/agungs/flutter/MyRestaurant/android/app/src/main/AndroidManifest.xml:28:15-52
+40            <!--
+41                 Displays an Android View that continues showing the launch screen
+42                 Drawable until Flutter paints its first frame, then this splash
+43                 screen fades out. A splash screen is useful to avoid any visual
+44                 gap between the end of Android's launch screen and the painting of
+45                 Flutter's first frame.
+46            -->
+47            <meta-data
+47-->/home/agungs/flutter/MyRestaurant/android/app/src/main/AndroidManifest.xml:35:13-38:17
+48                android:name="io.flutter.embedding.android.SplashScreenDrawable"
+48-->/home/agungs/flutter/MyRestaurant/android/app/src/main/AndroidManifest.xml:36:15-79
+49                android:resource="@drawable/launch_background" />
+49-->/home/agungs/flutter/MyRestaurant/android/app/src/main/AndroidManifest.xml:37:15-61
+50
+51            <intent-filter>
+51-->/home/agungs/flutter/MyRestaurant/android/app/src/main/AndroidManifest.xml:39:13-42:29
+52                <action android:name="android.intent.action.MAIN" />
+52-->/home/agungs/flutter/MyRestaurant/android/app/src/main/AndroidManifest.xml:40:17-68
+52-->/home/agungs/flutter/MyRestaurant/android/app/src/main/AndroidManifest.xml:40:25-66
+53
+54                <category android:name="android.intent.category.LAUNCHER" />
+54-->/home/agungs/flutter/MyRestaurant/android/app/src/main/AndroidManifest.xml:41:17-76
+54-->/home/agungs/flutter/MyRestaurant/android/app/src/main/AndroidManifest.xml:41:27-74
+55            </intent-filter>
+56        </activity>
+57        <!--
+58             Don't delete the meta-data below.
+59             This is used by the Flutter tool to generate GeneratedPluginRegistrant.java
+60        -->
+61        <meta-data
+61-->/home/agungs/flutter/MyRestaurant/android/app/src/main/AndroidManifest.xml:46:9-48:33
+62            android:name="flutterEmbedding"
+62-->/home/agungs/flutter/MyRestaurant/android/app/src/main/AndroidManifest.xml:47:13-44
+63            android:value="2" />
+63-->/home/agungs/flutter/MyRestaurant/android/app/src/main/AndroidManifest.xml:48:13-30
+64
+65        <activity
+65-->[:url_launcher] /home/agungs/flutter/MyRestaurant/build/url_launcher/intermediates/library_manifest/debug/AndroidManifest.xml:8:9-11:74
+66            android:name="io.flutter.plugins.urllauncher.WebViewActivity"
+66-->[:url_launcher] /home/agungs/flutter/MyRestaurant/build/url_launcher/intermediates/library_manifest/debug/AndroidManifest.xml:9:13-74
+67            android:exported="false"
+67-->[:url_launcher] /home/agungs/flutter/MyRestaurant/build/url_launcher/intermediates/library_manifest/debug/AndroidManifest.xml:10:13-37
+68            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
+68-->[:url_launcher] /home/agungs/flutter/MyRestaurant/build/url_launcher/intermediates/library_manifest/debug/AndroidManifest.xml:11:13-71
+69
+70        <service
+70-->[:cloud_firestore] /home/agungs/flutter/MyRestaurant/build/cloud_firestore/intermediates/library_manifest/debug/AndroidManifest.xml:8:9-12:19
+71            android:name="com.google.firebase.components.ComponentDiscoveryService"
+71-->[:cloud_firestore] /home/agungs/flutter/MyRestaurant/build/cloud_firestore/intermediates/library_manifest/debug/AndroidManifest.xml:8:18-89
+72            android:directBootAware="true"
+72-->[com.google.firebase:firebase-common:19.5.0] /home/agungs/.gradle/caches/transforms-2/files-2.1/f2075e22860da1eff820e301612c32d7/jetified-firebase-common-19.5.0/AndroidManifest.xml:35:13-43
+73            android:exported="false" >
+73-->[com.google.firebase:firebase-firestore:22.0.1] /home/agungs/.gradle/caches/transforms-2/files-2.1/4f9073e2ebe2e068e20fbdee0237abea/jetified-firebase-firestore-22.0.1/AndroidManifest.xml:19:13-37
+74            <meta-data
+74-->[:cloud_firestore] /home/agungs/flutter/MyRestaurant/build/cloud_firestore/intermediates/library_manifest/debug/AndroidManifest.xml:9:13-11:85
+75                android:name="com.google.firebase.components:io.flutter.plugins.firebase.firestore.FlutterFirebaseFirestoreRegistrar"
+75-->[:cloud_firestore] /home/agungs/flutter/MyRestaurant/build/cloud_firestore/intermediates/library_manifest/debug/AndroidManifest.xml:10:17-134
+76                android:value="com.google.firebase.components.ComponentRegistrar" />
+76-->[:cloud_firestore] /home/agungs/flutter/MyRestaurant/build/cloud_firestore/intermediates/library_manifest/debug/AndroidManifest.xml:11:17-82
+77            <meta-data
+77-->[:firebase_core] /home/agungs/flutter/MyRestaurant/build/firebase_core/intermediates/library_manifest/debug/AndroidManifest.xml:9:13-11:85
+78                android:name="com.google.firebase.components:io.flutter.plugins.firebase.core.FlutterFirebaseCoreRegistrar"
+78-->[:firebase_core] /home/agungs/flutter/MyRestaurant/build/firebase_core/intermediates/library_manifest/debug/AndroidManifest.xml:10:17-124
+79                android:value="com.google.firebase.components.ComponentRegistrar" />
+79-->[:firebase_core] /home/agungs/flutter/MyRestaurant/build/firebase_core/intermediates/library_manifest/debug/AndroidManifest.xml:11:17-82
+80            <meta-data
+80-->[com.google.firebase:firebase-firestore:22.0.1] /home/agungs/.gradle/caches/transforms-2/files-2.1/4f9073e2ebe2e068e20fbdee0237abea/jetified-firebase-firestore-22.0.1/AndroidManifest.xml:20:13-22:85
+81                android:name="com.google.firebase.components:com.google.firebase.firestore.FirestoreRegistrar"
+81-->[com.google.firebase:firebase-firestore:22.0.1] /home/agungs/.gradle/caches/transforms-2/files-2.1/4f9073e2ebe2e068e20fbdee0237abea/jetified-firebase-firestore-22.0.1/AndroidManifest.xml:21:17-111
+82                android:value="com.google.firebase.components.ComponentRegistrar" />
+82-->[com.google.firebase:firebase-firestore:22.0.1] /home/agungs/.gradle/caches/transforms-2/files-2.1/4f9073e2ebe2e068e20fbdee0237abea/jetified-firebase-firestore-22.0.1/AndroidManifest.xml:22:17-82
+83            <!--
+84                This registrar is not defined in the dynamic-module-support sdk itself to allow non-firebase
+85                clients to use it as well, by defining this registrar in their own core/common library.
+86            -->
+87            <meta-data
+87-->[com.google.firebase:firebase-common:19.5.0] /home/agungs/.gradle/caches/transforms-2/files-2.1/f2075e22860da1eff820e301612c32d7/jetified-firebase-common-19.5.0/AndroidManifest.xml:43:13-45:85
+88                android:name="com.google.firebase.components:com.google.firebase.dynamicloading.DynamicLoadingRegistrar"
+88-->[com.google.firebase:firebase-common:19.5.0] /home/agungs/.gradle/caches/transforms-2/files-2.1/f2075e22860da1eff820e301612c32d7/jetified-firebase-common-19.5.0/AndroidManifest.xml:44:17-121
+89                android:value="com.google.firebase.components.ComponentRegistrar" />
+89-->[com.google.firebase:firebase-common:19.5.0] /home/agungs/.gradle/caches/transforms-2/files-2.1/f2075e22860da1eff820e301612c32d7/jetified-firebase-common-19.5.0/AndroidManifest.xml:45:17-82
+90        </service>
+91
+92        <activity
+92-->[com.google.android.gms:play-services-base:17.0.0] /home/agungs/.gradle/caches/transforms-2/files-2.1/30a8c856d8fe9a20d62f614b9db1a8ff/play-services-base-17.0.0/AndroidManifest.xml:23:9-26:75
+93            android:name="com.google.android.gms.common.api.GoogleApiActivity"
+93-->[com.google.android.gms:play-services-base:17.0.0] /home/agungs/.gradle/caches/transforms-2/files-2.1/30a8c856d8fe9a20d62f614b9db1a8ff/play-services-base-17.0.0/AndroidManifest.xml:24:13-79
+94            android:exported="false"
+94-->[com.google.android.gms:play-services-base:17.0.0] /home/agungs/.gradle/caches/transforms-2/files-2.1/30a8c856d8fe9a20d62f614b9db1a8ff/play-services-base-17.0.0/AndroidManifest.xml:25:13-37
+95            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+95-->[com.google.android.gms:play-services-base:17.0.0] /home/agungs/.gradle/caches/transforms-2/files-2.1/30a8c856d8fe9a20d62f614b9db1a8ff/play-services-base-17.0.0/AndroidManifest.xml:26:13-72
+96
+97        <provider
+97-->[com.google.firebase:firebase-common:19.5.0] /home/agungs/.gradle/caches/transforms-2/files-2.1/f2075e22860da1eff820e301612c32d7/jetified-firebase-common-19.5.0/AndroidManifest.xml:26:9-31:39
+98            android:name="com.google.firebase.provider.FirebaseInitProvider"
+98-->[com.google.firebase:firebase-common:19.5.0] /home/agungs/.gradle/caches/transforms-2/files-2.1/f2075e22860da1eff820e301612c32d7/jetified-firebase-common-19.5.0/AndroidManifest.xml:27:13-77
+99            android:authorities="com.me.MyRestaurant.firebaseinitprovider"
+99-->[com.google.firebase:firebase-common:19.5.0] /home/agungs/.gradle/caches/transforms-2/files-2.1/f2075e22860da1eff820e301612c32d7/jetified-firebase-common-19.5.0/AndroidManifest.xml:28:13-72
+100            android:directBootAware="true"
+100-->[com.google.firebase:firebase-common:19.5.0] /home/agungs/.gradle/caches/transforms-2/files-2.1/f2075e22860da1eff820e301612c32d7/jetified-firebase-common-19.5.0/AndroidManifest.xml:29:13-43
+101            android:exported="false"
+101-->[com.google.firebase:firebase-common:19.5.0] /home/agungs/.gradle/caches/transforms-2/files-2.1/f2075e22860da1eff820e301612c32d7/jetified-firebase-common-19.5.0/AndroidManifest.xml:30:13-37
+102            android:initOrder="100" />
+102-->[com.google.firebase:firebase-common:19.5.0] /home/agungs/.gradle/caches/transforms-2/files-2.1/f2075e22860da1eff820e301612c32d7/jetified-firebase-common-19.5.0/AndroidManifest.xml:31:13-36
+103
+104        <meta-data
+104-->[com.google.android.gms:play-services-basement:17.0.0] /home/agungs/.gradle/caches/transforms-2/files-2.1/22be749c266c7450d8bbc3ce6d7a6c85/jetified-play-services-basement-17.0.0/AndroidManifest.xml:23:9-25:69
+105            android:name="com.google.android.gms.version"
+105-->[com.google.android.gms:play-services-basement:17.0.0] /home/agungs/.gradle/caches/transforms-2/files-2.1/22be749c266c7450d8bbc3ce6d7a6c85/jetified-play-services-basement-17.0.0/AndroidManifest.xml:24:13-58
+106            android:value="@integer/google_play_services_version" />
+106-->[com.google.android.gms:play-services-basement:17.0.0] /home/agungs/.gradle/caches/transforms-2/files-2.1/22be749c266c7450d8bbc3ce6d7a6c85/jetified-play-services-basement-17.0.0/AndroidManifest.xml:25:13-66
+107    </application>
+108
+109</manifest>
