@@ -1,4 +1,4 @@
-import 'package:MyRestaurant/screen/detailRestaurantScreen.dart';
+import 'package:myrestaurant/screen/detailRestaurantScreen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -36,8 +36,8 @@ class FavoriteScreen extends StatelessWidget {
                 );
               }
               return StaggeredGridView.countBuilder(
-                        crossAxisCount: snapshot.data!.docs.length,
-                        staggeredTileBuilder: (index) => new StaggeredTile.fit(3), mainAxisSpacing: 10, crossAxisSpacing: 10,
+                        crossAxisCount: 4,
+                        staggeredTileBuilder: (index) => new StaggeredTile.fit(2), mainAxisSpacing: 10, crossAxisSpacing: 10,
                         itemCount: snapshot.data!.docs.length,
                         itemBuilder: (_, index){
                           DocumentSnapshot document = snapshot.data!.docs[index];

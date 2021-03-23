@@ -1,5 +1,6 @@
-import 'package:MyRestaurant/navigationBLoC.dart';
-import 'package:MyRestaurant/screen/homeScreen.dart';
+import 'package:myrestaurant/bloc/nightmode_bloc.dart';
+import 'package:myrestaurant/navigationBLoC.dart';
+import 'package:myrestaurant/screen/homeScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -16,19 +17,26 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GetMaterialApp(
-      darkTheme: ThemeData(
-        brightness: Brightness.dark,
-      ),
-      theme: ThemeData(
-        brightness: Brightness.light,
-      ),
-      themeMode: ThemeMode.light,
-      debugShowCheckedModeBanner: false,
-      title: "Restaurant",
-      home: BlocProvider(
-        create: (context) => NavigateBloc(0),
-        child: HomeScreen(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<NightmodeBloc>(create: (context) => NightmodeBloc(),),
+        BlocProvider<NavigateBloc>(create: (context) => NavigateBloc(0),),
+      ],
+      child: BlocBuilder<NightmodeBloc, NightmodeState>(
+        builder: (context, state) {
+          return GetMaterialApp(
+            darkTheme: ThemeData(
+              brightness: Brightness.dark,
+            ),
+            theme: ThemeData(
+              brightness: Brightness.light,
+            ),
+            themeMode: state.themeMode,
+            debugShowCheckedModeBanner: false,
+            title: "Restaurant",
+            home: HomeScreen(),
+          );
+        },
       ),
     );
   }

@@ -1,5 +1,5 @@
-import 'package:MyRestaurant/navigationBLoC.dart';
-import 'package:MyRestaurant/screen/reviewScreen.dart';
+import 'package:myrestaurant/navigationBLoC.dart';
+import 'package:myrestaurant/screen/reviewScreen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -7,13 +7,14 @@ import 'package:get/get.dart';
 
 class DetailRestaurantScreen extends StatelessWidget {
   const DetailRestaurantScreen(
-      {this.restName, this.restLoc, this.restDesc, this.restFav, this.id});
+      {this.restName, this.restLoc, this.restDesc, this.restFav, this.id, this.restImg});
 
   final String? restName;
   final String? restLoc;
   final String? restDesc;
   final bool? restFav;
   final id;
+  final restImg;
 
   @override
   Widget build(BuildContext context) {
@@ -40,8 +41,11 @@ class DetailRestaurantScreen extends StatelessWidget {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    Container(
-                      child: Image.asset("assets/restaurant1.jpg"),
+                    Hero(
+                      tag: id,
+                      child: Container(
+                        child: Image.asset("assets/restaurant1.jpg"),
+                      ),
                     ),
                     SizedBox(height: 10),
                     Card(
@@ -379,7 +383,7 @@ class DetailRestaurantScreen extends StatelessWidget {
                 ),
                 Positioned(
                   right: 5,
-                  top: 263,
+                  top: MediaQuery.of(context).size.height * 0.36,
                   child: StreamBuilder<DocumentSnapshot>(
                       stream: firestore
                           .collection('Restaurant')
@@ -398,7 +402,7 @@ class DetailRestaurantScreen extends StatelessWidget {
                                   print(task['restFav']);
                                   fav();
                                   bloc.add(FavoriteEvent.toFavorite);
-                                  Scaffold.of(context).showSnackBar(SnackBar(
+                                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                                     content: Text(
                                         'Berhasil menambahkan ke favorite'),
                                     duration: Duration(seconds: 2),
@@ -407,7 +411,7 @@ class DetailRestaurantScreen extends StatelessWidget {
                                   print(task['restFav']);
                                   noFav();
                                   bloc.add(FavoriteEvent.toUnFavorite);
-                                  Scaffold.of(context).showSnackBar(SnackBar(
+                                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                                     content: Text(
                                         'Berhasil menghapus dari favorite'),
                                     duration: Duration(seconds: 2),

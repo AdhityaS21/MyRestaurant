@@ -1,15 +1,15 @@
-import 'package:MyRestaurant/navigationBLoC.dart';
-import 'package:MyRestaurant/screen/aboutMeScreen.dart';
-import 'package:MyRestaurant/screen/detailRestaurantScreen.dart';
-import 'package:MyRestaurant/screen/favoriteScreen.dart';
-import 'package:MyRestaurant/screen/searchProvider.dart';
-import 'package:MyRestaurant/screen/settingScreen.dart';
+import 'package:connectivity/connectivity.dart';
+import 'package:myrestaurant/navigationBLoC.dart';
+import 'package:myrestaurant/screen/aboutMeScreen.dart';
+import 'package:myrestaurant/screen/detailRestaurantScreen.dart';
+import 'package:myrestaurant/screen/favoriteScreen.dart';
+import 'package:myrestaurant/screen/searchProvider.dart';
+import 'package:myrestaurant/screen/settingScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:get/get.dart';
-import 'package:connectivity/connectivity.dart';
 import 'package:provider/provider.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -108,7 +108,8 @@ class RestaurantScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final FirebaseFirestore firestore = FirebaseFirestore.instance;
-    var restCollection = firestore.collection('Restaurant').orderBy('restName').snapshots();
+    var restCollection =
+        firestore.collection('Restaurant').orderBy('restName').snapshots();
 
     return ChangeNotifierProvider<SearchProvider>(
       create: (context) => SearchProvider(),
@@ -154,149 +155,172 @@ class RestaurantScreen extends StatelessWidget {
                       (provider.searchQuery >= 1)
                           ? restCollection = firestore
                               .collection('Restaurant')
-                              .where('restName', isGreaterThanOrEqualTo: value, isLessThan: value.substring(0, value.length-1)+String.fromCharCode(value.codeUnitAt(value.length-1)+1))
+                              .where('restName',
+                                  isGreaterThanOrEqualTo: value,
+                                  isLessThan: value.substring(
+                                          0, value.length - 1) +
+                                      String.fromCharCode(
+                                          value.codeUnitAt(value.length - 1) +
+                                              1))
                               .snapshots()
-                          : restCollection =
-                              firestore.collection('Restaurant').orderBy('restName').snapshots();
+                          : restCollection = firestore
+                              .collection('Restaurant')
+                              .orderBy('restName')
+                              .snapshots();
                     },
                   );
                 }),
               ),
             ),
             Expanded(
-              child: Consumer<SearchProvider>(builder: (context, provider, _) {
-                return Container(
-                  margin: EdgeInsets.only(top: 10.0, left: 10.0, right: 10.0),
-                  child: StreamBuilder<QuerySnapshot>(
-                      stream: restCollection,
-                      builder: (_, snapshot) {
-                        if (snapshot.hasData) {
-                          if (snapshot.data!.docs.isEmpty) {
-                            return Center(
-                              child: Text("Belum ada restaurant"),
-                            );
-                          }
-                          return Container(
-                            child: StaggeredGridView.countBuilder(
-                              crossAxisCount: 4,
-                              staggeredTileBuilder: (index) =>
-                                  new StaggeredTile.fit(2),
-                              mainAxisSpacing: 10,
-                              crossAxisSpacing: 10,
-                              itemCount: snapshot.data!.docs.length,
-                              itemBuilder: (_, index) {
-                                DocumentSnapshot document =
-                                    snapshot.data!.docs[index];
-                                Map<String, dynamic> task = document.data()!;
-                                return GestureDetector(
-                                  child: Card(
-                                    elevation: 0,
-                                    color: Colors.transparent,
-                                    child: Container(
-                                      width: double.infinity,
-                                      decoration: BoxDecoration(
-                                        boxShadow: [
-                                          BoxShadow(
-                                            color:
-                                                Colors.black12.withOpacity(0.5),
-                                            spreadRadius: 1,
-                                            blurRadius: 2,
-                                            offset: Offset(0, 3),
-                                          )
-                                        ],
-                                        color: Colors.white,
-                                        borderRadius: BorderRadius.circular(15),
-                                      ),
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Container(
-                                            alignment: Alignment.topLeft,
-                                            height:128,
+              child: StreamBuilder<ConnectivityResult>(
+                stream: Connectivity().onConnectivityChanged,
+                builder: (context, result) {
+                  if(result != null && result.hasData != ConnectivityResult.none){
+                    return Consumer<SearchProvider>(builder: (context, provider, _) {
+                    return Container(
+                      margin: EdgeInsets.only(top: 10.0, left: 10.0, right: 10.0),
+                      child: StreamBuilder<QuerySnapshot>(
+                          stream: restCollection,
+                          builder: (_, snapshot) {
+                            if (snapshot.hasData) {
+                              if (snapshot.data!.docs.isEmpty) {
+                                return Center(
+                                  child: Text("Belum ada restaurant"),
+                                );
+                              }
+                              return Container(
+                                child: StaggeredGridView.countBuilder(
+                                  crossAxisCount: 4,
+                                  staggeredTileBuilder: (index) =>
+                                      new StaggeredTile.fit(2),
+                                  mainAxisSpacing: 10,
+                                  crossAxisSpacing: 10,
+                                  itemCount: snapshot.data!.docs.length,
+                                  itemBuilder: (_, index) {
+                                    DocumentSnapshot document =
+                                        snapshot.data!.docs[index];
+                                    Map<String, dynamic> task = document.data()!;
+                                    return GestureDetector(
+                                      child: Hero(
+                                        tag: document.id,
+                                        child: Card(
+                                          elevation: 0,
+                                          color: Colors.transparent,
+                                          child: Container(
                                             width: double.infinity,
                                             decoration: BoxDecoration(
-                                              borderRadius: BorderRadius.only(
-                                                topLeft: Radius.circular(15),
-                                                topRight: Radius.circular(15),
-                                              ),
-                                              image: DecorationImage(
-                                                image: ((task['imgURL'] != null)
-                                                        ? NetworkImage(task['imgURL'])
-                                                        : AssetImage(
-                                                            'assets/restaurant1.jpg'))
-                                                    as ImageProvider<Object>,
-                                              ),
+                                              boxShadow: [
+                                                BoxShadow(
+                                                  color:
+                                                      Colors.black12.withOpacity(0.5),
+                                                  spreadRadius: 1,
+                                                  blurRadius: 2,
+                                                  offset: Offset(0, 3),
+                                                )
+                                              ],
+                                              color: Colors.white,
+                                              borderRadius: BorderRadius.circular(15),
+                                            ),
+                                            child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Container(
+                                                  alignment: Alignment.topLeft,
+                                                  height: MediaQuery.of(context).size.height * 0.18,
+                                                  width: double.infinity,
+                                                  decoration: BoxDecoration(
+                                                    borderRadius: BorderRadius.only(
+                                                      topLeft: Radius.circular(15),
+                                                      topRight: Radius.circular(15),
+                                                    ),
+                                                    image: DecorationImage(
+                                                      image: ((task['imgURL'] != null)
+                                                              ? NetworkImage(
+                                                                  task['imgURL'])
+                                                              : AssetImage(
+                                                                  'assets/restaurant1.jpg'))
+                                                          as ImageProvider<Object>,
+                                                    ),
+                                                  ),
+                                                ),
+                                                SizedBox(height: 10),
+                                                Container(
+                                                  padding: EdgeInsets.only(
+                                                      left: 8.0, right: 8.0),
+                                                  child: Text(
+                                                    task['restLoc'],
+                                                    maxLines: 2,
+                                                    style: TextStyle(
+                                                      color: Colors.blue,
+                                                      fontWeight: FontWeight.bold,
+                                                    ),
+                                                  ),
+                                                ),
+                                                SizedBox(height: 10),
+                                                Container(
+                                                  padding: EdgeInsets.only(
+                                                      left: 8.0, right: 8.0),
+                                                  child: Text(
+                                                    task['restName'],
+                                                    style: TextStyle(
+                                                      fontSize: 15.0,
+                                                      fontWeight: FontWeight.bold,
+                                                    ),
+                                                  ),
+                                                ),
+                                                SizedBox(height: 10),
+                                                Container(
+                                                  padding: EdgeInsets.only(
+                                                      left: 8.0, right: 8.0),
+                                                  child: Text(
+                                                    task['restDesc'],
+                                                    maxLines: 6,
+                                                    overflow: TextOverflow.ellipsis,
+                                                    style: TextStyle(
+                                                      color: Colors.grey[600],
+                                                      fontSize: 13,
+                                                      fontWeight: FontWeight.bold,
+                                                    ),
+                                                  ),
+                                                ),
+                                                SizedBox(
+                                                  height: 10,
+                                                  width: 10,
+                                                ),
+                                              ],
                                             ),
                                           ),
-                                          SizedBox(height: 10),
-                                          Container(
-                                            padding: EdgeInsets.only(
-                                                left: 8.0, right: 8.0),
-                                            child: Text(
-                                              task['restLoc'],
-                                              maxLines: 2,
-                                              style: TextStyle(
-                                                color: Colors.blue,
-                                                fontWeight: FontWeight.bold,
-                                              ),
-                                            ),
-                                          ),
-                                          SizedBox(height: 10),
-                                          Container(
-                                            padding: EdgeInsets.only(
-                                                left: 8.0, right: 8.0),
-                                            child: Text(
-                                              task['restName'],
-                                              style: TextStyle(
-                                                fontSize: 15.0,
-                                                fontWeight: FontWeight.bold,
-                                              ),
-                                            ),
-                                          ),
-                                          SizedBox(height: 10),
-                                          Container(
-                                            padding: EdgeInsets.only(
-                                                left: 8.0, right: 8.0),
-                                            child: Text(
-                                              task['restDesc'],
-                                              maxLines: 6,
-                                              overflow: TextOverflow.ellipsis,
-                                              style: TextStyle(
-                                                color: Colors.grey[600],
-                                                fontSize: 13,
-                                                fontWeight: FontWeight.bold,
-                                              ),
-                                            ),
-                                          ),
-                                          SizedBox(
-                                            height: 10,
-                                            width: 10,
-                                          ),
-                                        ],
+                                        ),
                                       ),
-                                    ),
-                                  ),
-                                  onTap: () {
-                                    Get.to(DetailRestaurantScreen(
-                                      restName: task['restName'],
-                                      restLoc: task['restLoc'],
-                                      restDesc: task['restDesc'],
-                                      restFav: task['restFav'],
-                                      id: document.id,
-                                    ));
+                                      onTap: () {
+                                        Get.to(DetailRestaurantScreen(
+                                          restName: task['restName'],
+                                          restLoc: task['restLoc'],
+                                          restDesc: task['restDesc'],
+                                          restFav: task['restFav'],
+                                          id: document.id,
+                                          restImg: task['imgURL'],
+                                        ));
+                                      },
+                                    );
                                   },
-                                );
-                              },
-                            ),
-                          );
-                        }
-                        return Center(
-                          child: CircularProgressIndicator(),
-                        );
-                      }),
-                );
-              }),
+                                ),
+                              );
+                            }
+                            return Center(
+                              child: CircularProgressIndicator(),
+                            );
+                          }),
+                    );
+                  });
+                  } else
+                  return Center(
+                    child: Text("Failed to load data. Check your internet connection !"),
+                  );
+                }
+              ),
             ),
           ],
         ),

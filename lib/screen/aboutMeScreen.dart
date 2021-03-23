@@ -1,4 +1,5 @@
-import 'package:MyRestaurant/screen/detailRestaurantScreen.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:myrestaurant/screen/detailRestaurantScreen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -102,27 +103,54 @@ class AboutMeScreen extends StatelessWidget {
                           child: Text("belum ada favorite"),
                         );
                       }
-                      return GridView.count(
-                        childAspectRatio: 3 / 5,
-                        crossAxisCount: 2,
-                        children:
-                            List.generate(snapshot.data!.docs.length, (index) {
+                      return StaggeredGridView.countBuilder(
+                        crossAxisCount: 4,
+                        staggeredTileBuilder: (index) => new StaggeredTile.fit(2), mainAxisSpacing: 10, crossAxisSpacing: 10,
+                        itemCount: snapshot.data!.docs.length,
+                        itemBuilder: (_, index){
                           DocumentSnapshot document = snapshot.data!.docs[index];
                           Map<String, dynamic> task = document.data()!;
                           return GestureDetector(
-                            child: Container(
-                              child: Card(
+                            child: Card(
+                              elevation: 0,
+                              color: Colors.transparent,
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  boxShadow: [BoxShadow(
+                                    color: Colors.black12.withOpacity(0.5),
+                                    spreadRadius: 1,
+                                    blurRadius: 2,
+                                    offset: Offset(0, 3),
+                                  )],
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(15),
+                                ),
                                 child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  crossAxisAlignment:
+                                      CrossAxisAlignment.start,
                                   children: [
-                                    (task['imgURL'] != null)
-                                        ? Image.network(task['imgURL'])
-                                        : Image.asset('assets/restaurant1.jpg'),
+                                    Container(
+                                      height:129,
+                                      width: 190,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.only(
+                                          topLeft: Radius.circular(15),
+                                          topRight: Radius.circular(15),
+                                        ),
+                                        image: DecorationImage(
+                                          image: ((task['imgURL'] != null)
+                                            ? NetworkImage(task['imgURL'])
+                                            : AssetImage('assets/restaurant1.jpg')) as ImageProvider<Object>,
+                                        ),
+                                      ),
+                                    ),
                                     SizedBox(height: 10),
                                     Container(
-                                      padding: EdgeInsets.only(left: 8, right: 8),
+                                      padding: EdgeInsets.only(
+                                          left: 8.0, right: 8.0),
                                       child: Text(
                                         task['restLoc'],
+                                        maxLines: 2,
                                         style: TextStyle(
                                           color: Colors.blue,
                                           fontWeight: FontWeight.bold,
@@ -131,18 +159,20 @@ class AboutMeScreen extends StatelessWidget {
                                     ),
                                     SizedBox(height: 10),
                                     Container(
-                                      padding: EdgeInsets.only(left: 8, right: 8),
+                                      padding: EdgeInsets.only(
+                                          left: 8.0, right: 8.0),
                                       child: Text(
                                         task['restName'],
                                         style: TextStyle(
-                                          fontSize: 15,
+                                          fontSize: 15.0,
                                           fontWeight: FontWeight.bold,
                                         ),
                                       ),
                                     ),
                                     SizedBox(height: 10),
                                     Container(
-                                      padding: EdgeInsets.only(left: 8, right: 8),
+                                      padding: EdgeInsets.only(
+                                          left: 8.0, right: 8.0),
                                       child: Text(
                                         task['restDesc'],
                                         maxLines: 6,
@@ -154,11 +184,12 @@ class AboutMeScreen extends StatelessWidget {
                                         ),
                                       ),
                                     ),
+                                    SizedBox(height: 10, width: 10,),
                                   ],
                                 ),
                               ),
                             ),
-                            onTap: () {
+                            onTap: (){
                               Get.to(DetailRestaurantScreen(
                                 restName: task['restName'],
                                 restLoc: task['restLoc'],
@@ -168,7 +199,7 @@ class AboutMeScreen extends StatelessWidget {
                               ));
                             },
                           );
-                        }),
+                        },
                       );
                     }
                     return Center(

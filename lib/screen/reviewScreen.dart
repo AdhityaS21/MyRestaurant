@@ -142,8 +142,8 @@ class ReviewScreen extends StatelessWidget {
                 SizedBox(height: 20),
                 Container(
                   width: 320,
-                  child: RaisedButton(
-                    color: Colors.blue,
+                  child: ElevatedButton(
+                    //color: Colors.blue,
                     onPressed: () {
                       firestore.collection('Reviews').add({
                         'restKey': id,
@@ -156,8 +156,8 @@ class ReviewScreen extends StatelessWidget {
 
                       Navigator.pop(_);
                     },
-                    textColor: Colors.white,
-                    padding: const EdgeInsets.all(0.0),
+                    //textColor: Colors.white,
+                    //padding: const EdgeInsets.all(0.0),
                     child: Container(
                       decoration: const BoxDecoration(),
                       padding: const EdgeInsets.all(10.0),
