@@ -23,9 +23,9 @@ class SharedPreferencesService {
     return _instance;
   }
 
-  Future<void> setDarkModeInfo(bool isDarkModeEnabled) async =>
+  Future<void> setDarkModeInfo(bool? isDarkModeEnabled) async =>
       await _preferences!.setBool(
-          SharedPrefKeys.darkModeEnabled, isDarkModeEnabled);
+          SharedPrefKeys.darkModeEnabled, isDarkModeEnabled!);
 
   bool? get isDarkModeEnabled =>
       _preferences!.getBool(SharedPrefKeys.darkModeEnabled);

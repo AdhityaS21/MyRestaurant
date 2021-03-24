@@ -1,10 +1,11 @@
 import 'package:myrestaurant/bloc/nightmode_bloc.dart';
 import 'package:myrestaurant/navigationBLoC.dart';
-import 'package:myrestaurant/screen/homeScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
+import 'package:myrestaurant/screen/homeScreen.dart';
+import 'package:myrestaurant/screen/splashScreen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -34,7 +35,7 @@ class MyApp extends StatelessWidget {
             themeMode: state.themeMode,
             debugShowCheckedModeBanner: false,
             title: "Restaurant",
-            home: HomeScreen(),
+            home: SplashScreen(),
           );
         },
       ),

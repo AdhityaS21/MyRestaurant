@@ -35,13 +35,12 @@ class NightmodeBloc extends Bloc<NightmodeEvent, NightmodeState> {
 
   Stream<NightmodeState> _mapThemeChangedToState(bool value) async* {
     final sharedPrefService =  await SharedPreferencesService.instance;
-    final isDarkModeEnabled = sharedPrefService!.isDarkModeEnabled;
 
-    if(value && !isDarkModeEnabled!){
-      await sharedPrefService.setDarkModeInfo(true);
+    if(value){
+      await sharedPrefService!.setDarkModeInfo(true);
       yield NightmodeState(ThemeMode.dark);
-    }else if(!value && isDarkModeEnabled!){
-      await sharedPrefService.setDarkModeInfo(false);
+    }else if(!value){
+      await sharedPrefService!.setDarkModeInfo(false);
       yield NightmodeState(ThemeMode.light);
     }
   }

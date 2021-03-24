@@ -53,6 +53,7 @@ flutter:
     - assets/restaurant1.jpg
     - assets/img2.jpg
     - assets/linkedin.png
+    - assets/icon.jpg
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
   # For details regarding adding assets from package dependencies, see

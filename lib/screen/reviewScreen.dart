@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
+import 'package:myrestaurant/bloc/nightmode_bloc.dart';
 
 class ReviewScreen extends StatelessWidget {
   const ReviewScreen({this.id, this.restName});
@@ -11,105 +13,109 @@ class ReviewScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     FirebaseFirestore firestore = FirebaseFirestore.instance;
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        iconTheme: IconThemeData(color: Colors.black),
-        elevation: 0,
-        actions: <Widget>[
-          IconButton(
-            icon: Icon(Icons.add, color: Colors.black),
-            onPressed: () {
-              _settingModalBottomSheet(context);
-            },
-          ),
-        ],
-        title: Text(
-          "Reviews",
-          style: TextStyle(
-            color: Colors.black,
+    return BlocBuilder<NightmodeBloc, NightmodeState>(builder: (context, state) {
+      return Scaffold(
+        appBar: AppBar(
+          backgroundColor: (state.themeMode == ThemeMode.light) ? Colors.white : Colors.black,
+          iconTheme: IconThemeData(color: (state.themeMode == ThemeMode.light) ? Colors.black : Colors.white),
+          elevation: 0,
+          actions: <Widget>[
+            IconButton(
+              icon: Icon(Icons.add, color: (state.themeMode == ThemeMode.light) ? Colors.black : Colors.white),
+              onPressed: () {
+                _settingModalBottomSheet(context);
+              },
+            ),
+          ],
+          title: Text(
+            "Reviews",
+            style: TextStyle(
+              color: (state.themeMode == ThemeMode.light) ? Colors.black : Colors.white,
+            ),
           ),
         ),
-      ),
-      body: StreamBuilder<QuerySnapshot>(
-        stream: firestore
-            .collection('Reviews')
-            .where('restKey', isEqualTo: id)
-            .orderBy('date', descending: true)
-            .snapshots(),
-        builder: (_, snapshot) {
-          if (snapshot.hasData) {
-            if(snapshot.data!.docs.isEmpty){
+        body: StreamBuilder<QuerySnapshot>(
+          stream: firestore
+              .collection('Reviews')
+              .where('restKey', isEqualTo: id)
+              .orderBy('date', descending: true)
+              .snapshots(),
+          builder: (_, snapshot) {
+            if (snapshot.hasData) {
+              if (snapshot.data!.docs.isEmpty) {
+                return Container(
+                  alignment: Alignment.center,
+                  child: Text("belum ada review"),
+                );
+              }
+              return ListView.builder(
+                itemCount: snapshot.data!.docs.length,
+                itemBuilder: (_, index) {
+                  DocumentSnapshot document = snapshot.data!.docs[index];
+                  Map<String, dynamic> task = document.data()!;
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SizedBox(height: 20),
+                      Container(
+                        padding: EdgeInsets.only(left: 8, right: 8),
+                        child: Row(
+                          children: [
+                            Icon(Icons.account_circle_rounded,
+                                color: Colors.grey, size: 50),
+                            SizedBox(width: 15),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  task['name'],
+                                  style: TextStyle(
+                                    fontSize: 18,
+                                  ),
+                                ),
+                                SizedBox(height: 5),
+                                Text(
+                                  task['date'],
+                                  style: TextStyle(
+                                    fontSize: 14,
+                                    color: Colors.grey[600],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                      SizedBox(height: 5),
+                      Container(
+                        padding: EdgeInsets.only(left: 20, right: 20),
+                        child: Text(task['review']),
+                      ),
+                      SizedBox(height: 20),
+                    ],
+                  );
+                },
+              );
+            } else {
               return Container(
                 alignment: Alignment.center,
-                child: Text("belum ada review"),
+                child: Text("Loading ..."),
               );
             }
-            return ListView.builder(
-              itemCount: snapshot.data!.docs.length,
-              itemBuilder: (_, index) {
-                DocumentSnapshot document = snapshot.data!.docs[index];
-                Map<String, dynamic> task = document.data()!;
-                return Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Container(
-                      padding: EdgeInsets.only(left: 8, right: 8),
-                      child: Row(
-                        children: [
-                          Icon(Icons.account_circle_rounded,
-                              color: Colors.grey, size: 50),
-                          SizedBox(width: 15),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                task['name'],
-                                style: TextStyle(
-                                  fontSize: 18,
-                                ),
-                              ),
-                              SizedBox(height: 5),
-                              Text(
-                                task['date'],
-                                style: TextStyle(
-                                  fontSize: 14,
-                                  color: Colors.grey[600],
-                                ),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-                    SizedBox(height: 5),
-                    Container(
-                      padding: EdgeInsets.only(left: 20, right: 20),
-                      child: Text(task['review']),
-                    ),
-                    SizedBox(height: 20),
-                  ],
-                );
-              },
-            );
-          } else {
-            return Container(
-              alignment: Alignment.center,
-              child: Text("Loading ..."),
-            );
-          }
-        },
-      ),
-    );
+          },
+        ),
+      );
+    });
   }
 
   void _settingModalBottomSheet(context) {
     final FirebaseFirestore firestore = FirebaseFirestore.instance;
 
-    TextEditingController nameController = new TextEditingController(), reviewController = new TextEditingController();
+    TextEditingController nameController = new TextEditingController(),
+        reviewController = new TextEditingController();
 
     showModalBottomSheet(
-      enableDrag: false,
+        enableDrag: false,
         context: context,
         builder: (_) {
           return Container(
@@ -170,4 +176,4 @@ class ReviewScreen extends StatelessWidget {
           );
         });
   }
-  }
+}

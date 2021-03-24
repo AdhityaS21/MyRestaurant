@@ -119,11 +119,6 @@ class _SettingScreenState extends State<SettingScreen> {
                   ),
                 ],
               ),
-              // SwitchListTile(
-              //   value: true,
-              //   onChanged: (value){
-              //   },
-              // ),
             ],
           ),
         ),
