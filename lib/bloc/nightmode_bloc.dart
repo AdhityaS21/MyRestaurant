@@ -3,7 +3,6 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:myrestaurant/sharedPreferences.dart';
-
 part 'nightmode_event.dart';
 part 'nightmode_state.dart';
 
@@ -38,10 +37,10 @@ class NightmodeBloc extends Bloc<NightmodeEvent, NightmodeState> {
     final sharedPrefService =  await SharedPreferencesService.instance;
     final isDarkModeEnabled = sharedPrefService!.isDarkModeEnabled;
 
-    if(value){
+    if(value && !isDarkModeEnabled!){
       await sharedPrefService.setDarkModeInfo(true);
       yield NightmodeState(ThemeMode.dark);
-    }else if(!value){
+    }else if(!value && isDarkModeEnabled!){
       await sharedPrefService.setDarkModeInfo(false);
       yield NightmodeState(ThemeMode.light);
     }

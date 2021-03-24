@@ -42,7 +42,7 @@ class DetailRestaurantScreen extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Hero(
-                      tag: id,
+                      tag: restName!,
                       child: Container(
                         child: Image.asset("assets/restaurant1.jpg"),
                       ),

@@ -10,116 +10,124 @@ class SettingScreen extends StatefulWidget {
 }
 
 class _SettingScreenState extends State<SettingScreen> {
-  bool isSwitched = false, isSwitched2 = false;
+  late bool isSwitched = false, isSwitched2;
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => NightmodeBloc(),
-      child:
-          BlocBuilder<NightmodeBloc, NightmodeState>(builder: (context, state) {
-        return Scaffold(
-          appBar: AppBar(
-            title: Text(
-              "Settings",
-              style: TextStyle(color: Colors.black),
-            ),
-            backgroundColor: Colors.white,
-            elevation: 0,
+    return BlocBuilder<NightmodeBloc, NightmodeState>(
+        builder: (context, state) {
+      (state.themeMode == ThemeMode.light) ? isSwitched2 = false : isSwitched2 = true;
+
+      return Scaffold(
+        appBar: AppBar(
+          title: Text(
+            "Settings",
+            style: TextStyle(
+                color: (state.themeMode == ThemeMode.light)
+                    ? Colors.black
+                    : Colors.white),
           ),
-          body: Container(
-            padding: EdgeInsets.only(left: 20.0, right: 20.0),
-            child: Column(
-              children: [
-                SizedBox(height: 20),
-                Row(
-                  children: [
-                    Icon(Icons.notifications_active, color: Colors.grey),
-                    SizedBox(width: 16.0),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            "RestaurantNotification",
-                            style: TextStyle(
-                              fontSize: 17,
-                            ),
+          backgroundColor: (state.themeMode == ThemeMode.light)
+              ? Colors.white
+              : Colors.black,
+          elevation: 0,
+        ),
+        body: Container(
+          padding: EdgeInsets.only(left: 20.0, right: 20.0),
+          child: Column(
+            children: [
+              SizedBox(height: 20),
+              Row(
+                children: [
+                  Icon(Icons.notifications_active, color: Colors.grey),
+                  SizedBox(width: 16.0),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "RestaurantNotification",
+                          style: TextStyle(
+                            fontSize: 17,
                           ),
-                          SizedBox(height: 6),
-                          Text(
-                            "Notification every 11 AM",
-                            style: TextStyle(
-                              fontSize: 14,
-                              color: Colors.grey[600],
-                            ),
+                        ),
+                        SizedBox(height: 6),
+                        Text(
+                          "Notification every 11 AM",
+                          style: TextStyle(
+                            fontSize: 14,
+                            color: Colors.grey[600],
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
-                    Switch(
-                      value: isSwitched,
-                      onChanged: (value) {
-                        setState(() {
-                          isSwitched = value;
-                          print(isSwitched);
-                        });
-                      },
-                      activeTrackColor: Colors.lightBlueAccent,
-                      activeColor: Colors.blue,
-                    ),
-                  ],
-                ),
-                SizedBox(height: 10.0),
-                Row(
-                  children: [
-                    Icon(Icons.wb_sunny, color: Colors.grey),
-                    SizedBox(width: 16.0),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            "Change to Night Mode",
-                            style: TextStyle(
-                              fontSize: 17,
-                            ),
+                  ),
+                  Switch(
+                    value: isSwitched,
+                    onChanged: (value) {
+                      setState(() {
+                        isSwitched = value;
+                        print(isSwitched);
+                      });
+                    },
+                    activeTrackColor: Colors.lightBlueAccent,
+                    activeColor: Colors.blue,
+                  ),
+                ],
+              ),
+              SizedBox(height: 10.0),
+              Row(
+                children: [
+                  Icon(Icons.nights_stay, color: Colors.grey),
+                  SizedBox(width: 16.0),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "Change to Night Mode",
+                          style: TextStyle(
+                            fontSize: 17,
                           ),
-                          SizedBox(height: 6),
-                          Text(
-                            "Change to Night Mode",
-                            style: TextStyle(
-                              fontSize: 14,
-                              color: Colors.grey[600],
-                            ),
+                        ),
+                        SizedBox(height: 6),
+                        Text(
+                          (state.themeMode == ThemeMode.light)
+                              ? "Change to Night Mode"
+                              : "Change to Light Mode",
+                          style: TextStyle(
+                            fontSize: 14,
+                            color: Colors.grey[600],
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
-                    Switch(
-                      value: isSwitched2,
-                      onChanged: (value) {
-                        setState(() {
-                          isSwitched2 = value;
-                          print(isSwitched2);
-                          BlocProvider.of<NightmodeBloc>(context).add(ThemeChanged(value));
-                        });
-                      },
-                      activeTrackColor: Colors.lightBlueAccent,
-                      activeColor: Colors.blue,
-                    ),
-                  ],
-                ),
-                // SwitchListTile(
-                //   value: true,
-                //   onChanged: (value){
-                //   },
-                // ),
-              ],
-            ),
+                  ),
+                  Switch(
+                    value: isSwitched2,
+                    onChanged: (value) {
+                      setState(() {
+                        isSwitched2 = value;
+                        print(isSwitched2);
+                        print(state.themeMode);
+                        BlocProvider.of<NightmodeBloc>(context)
+                            .add(ThemeChanged(value));
+                      });
+                    },
+                    activeTrackColor: Colors.lightBlueAccent,
+                    activeColor: Colors.blue,
+                  ),
+                ],
+              ),
+              // SwitchListTile(
+              //   value: true,
+              //   onChanged: (value){
+              //   },
+              // ),
+            ],
           ),
-        );
-      }),
-    );
+        ),
+      );
+    });
   }
 }

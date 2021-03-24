@@ -1,4 +1,6 @@
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:myrestaurant/bloc/nightmode_bloc.dart';
 import 'package:myrestaurant/screen/detailRestaurantScreen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -12,28 +14,29 @@ class AboutMeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     FirebaseFirestore firestore = FirebaseFirestore.instance;
 
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          "About Me",
-          style: TextStyle(color: Colors.black),
-        ),
-        elevation: 0,
-        backgroundColor: Colors.white,
-      ),
-      body: Container(
-        margin: EdgeInsets.only(left: 18.0, right: 18.0),
-        child: Column(
-          children: [
-            SizedBox(height: 50),
-            Text(
-              "Agung S",
-              style: TextStyle(
-                fontSize: 25,
-                fontWeight: FontWeight.bold,
-              ),
+    return BlocBuilder<NightmodeBloc, NightmodeState>(
+      builder: (context, state) {
+        return Scaffold(
+          appBar: AppBar(
+            title: Text(
+              "About Me",
+              style: TextStyle(color: (state.themeMode == ThemeMode.light) ? Colors.black : Colors.white),
             ),
-            SizedBox(height: 15),
+            elevation: 0,
+            backgroundColor: (state.themeMode == ThemeMode.light) ? Colors.white : Colors.black,
+          ),
+          body: Container(
+            margin: EdgeInsets.only(left: 18.0, right: 18.0),
+            child: Column(
+              children: [
+                SizedBox(height: 50),
+                Text(
+                  "Agung S",
+                  style: TextStyle(
+                    fontSize: 25,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),  SizedBox(height: 15),
             Text(
               "Bandung",
               style: TextStyle(
@@ -213,5 +216,6 @@ class AboutMeScreen extends StatelessWidget {
         ),
       ),
     );
-  }
+  });
+}
 }
